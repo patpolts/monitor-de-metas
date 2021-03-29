@@ -10,7 +10,8 @@ wp-cli core install --url=${URL} --title=${TITLE} --admin_user=${ADMUSER} --admi
 
 cd /monitor-de-metas/wp-content/themes/pdm-andamento/
 composer install
-bower install
+ln -s /usr/bin/nodejs /usr/bin/node
+bower install --allow-root
 
 wp-cli plugin activate timber-library --allow-root --path=/monitor-de-metas
 wp-cli theme activate pdm-andamento --allow-root --path=/monitor-de-metas
