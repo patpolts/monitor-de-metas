@@ -12,8 +12,6 @@ ENV TITLE='title'
 ENV ADMUSER='admin' 
 ENV ADMPASS='pass1234' 
 ENV ADMMAIL='a@a.com'
-ENV WAIT_HOSTS=''
-ENV WAIT_AFTER_HOSTS=0
 
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get upgrade -y 
 RUN DEBIAN_FRONTEND=noninteractive apt-get install curl php5-cli vim wget curl nodejs npm git unzip mysql-client -y -o Dpkg::Options::="--force-confold"
@@ -39,6 +37,7 @@ RUN wget http://br.wordpress.org/wordpress-3.9.1-pt_BR.zip && \
     rm -rf wordpress && rm -rf wordpress-3.9.1-pt_BR.zip
 
 COPY ./entrypoint/entrypoint.sh .
+COPY ./entrypoint/wait-for-it.sh .
 
 EXPOSE 80
 
