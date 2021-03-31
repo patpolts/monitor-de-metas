@@ -4,6 +4,8 @@ cd /monitor-de-metas
 git pull
 chown -R www-data: /monitor-de-metas
 
+wget https://github.com/ufoscout/docker-compose-wait/releases/download/2.8.0/wait /wait
+
 sed -i -e "s/root %%NGINX_ROOT%%;/root \/monitor-de-metas;/g" /etc/nginx/sites-available/default.conf
 
 wp-cli config create --dbhost=${DBHOST} --dbname=${DBNAME} --dbuser=${DBUSER} --dbpass=${DBPASS} --dbprefix=${DBPREFIX} --locale=pt_BR --path=/monitor-de-metas --allow-root
@@ -18,4 +20,4 @@ wp-cli plugin activate timber-library --allow-root --path=/monitor-de-metas
 wp-cli theme activate pdm-andamento --allow-root --path=/monitor-de-metas
 
 /etc/init.d/php5.6-fpm start
-nginx
+sh -c "/wait && nginx"
