@@ -37,7 +37,6 @@ RUN wget http://br.wordpress.org/wordpress-3.9.1-pt_BR.zip && \
     rm -rf wordpress && rm -rf wordpress-3.9.1-pt_BR.zip
 
 COPY ./entrypoint/entrypoint.sh .
-COPY ./entrypoint/wait-for-it.sh .
 
 EXPOSE 80
 
