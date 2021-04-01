@@ -15,14 +15,14 @@
 		<!-- icons -->
 		<!--link href="<?php echo get_template_directory_uri(); ?>/img/icons/favicon.ico" rel="shortcut icon"-->
 		<!--link href="<?php echo get_template_directory_uri(); ?>/img/icons/touch.png" rel="apple-touch-icon-precomposed"-->
-			
+		<script type="text/javascript">
+			var wpAjaxUrl = '<?= admin_url('admin-ajax.php');?>';
+			var templateUrl = '<?= get_template_directory_uri(); ?>';
+			var blogUrl = '<?= bloginfo('url');?>';
+		</script>
 		<!-- css + javascript -->
 		<?php wp_head(); ?>
-		<script type="text/javascript">
-			var wpAjaxUrl = '<?php echo admin_url('admin-ajax.php');?>';
-			var templateUrl = '<?php echo get_template_directory_uri(); ?>';
-			var blogUrl = '<?php echo bloginfo('url');?>';
-		</script>
+		
 		
 		<script>(function(d, s, id) {
 		  var js, fjs = d.getElementsByTagName(s)[0];
@@ -36,23 +36,21 @@
 			if(!empty($_GET['pid'])):
 				$post = get_post($_GET['pid']);
 				setup_postdata($post);
+				echo '<script type="text/javascript">';
+				echo 'console.log("teste ok");'
+				echo 'var postId = $_GET['pid'].';';
+				$eixo = wp_get_post_terms($post->ID, 'eixos');
+				if(!empty($eixo)):
+					echo 'var eixoId =  $eixo[0]->slug.';';
+				endif;
+				echo '</script>';
 				?>
-					<script type="text/javascript">
-						var postId = '<?php echo $_GET['pid'];?>';
-						<?php
-						$eixo = wp_get_post_terms($post->ID, 'eixos');
-						if(!empty($eixo)):
-							?>
-								var eixoId = '<?php echo $eixo[0]->slug;?>';
-							<?php
-						endif;
-						?>
-					</script>
-					<meta property="og:type" content="blog" />
-					<meta property="og:title" content="Programa de Metas da Cidade de São Paulo - Meta <?php the_title();?>" />
-					<meta property="og:description" content="<?php echo get_the_excerpt();?>" />
-					<meta property="og:image" content="<?php echo get_template_directory_uri(); ?>/img/logo-facebook.jpg" />			
-				<?php
+				
+				<meta property="og:type" content="blog" />
+				<meta property="og:title" content="Programa de Metas da Cidade de São Paulo - Meta <?php the_title();?>" />
+				<meta property="og:description" content="<?php echo get_the_excerpt();?>" />
+				<meta property="og:image" content="<?php echo get_template_directory_uri(); ?>/img/logo-facebook.jpg" />			
+		<?php
 			else:
 			?>
 				<meta property="og:type" content="blog" />
